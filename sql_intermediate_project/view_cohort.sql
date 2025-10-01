@@ -1,3 +1,5 @@
+DROP VIEW cohort_analysis;
+
 CREATE OR REPLACE VIEW cohort_analysis AS
 
 WITH customer_revenue AS (
@@ -21,7 +23,7 @@ SELECT
     count_order,
     countryfull, 
     age, 
-    CONCAT (TRIM(givenname),'',TRIM(surname)),
+    CONCAT (TRIM(givenname),'',TRIM(surname)) AS cleaned_name,
     MIN(orderdate) OVER (PARTITION BY customerkey) AS first_purchase_date,
     EXTRACT (YEAR FROM MIN(orderdate) OVER (PARTITION BY customerkey)) AS cohort_year
 FROM customer_revenue
